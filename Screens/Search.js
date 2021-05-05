@@ -1,13 +1,26 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import styles from '../styles.js'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { add, sub } from '../actions'
 
-export default class Search extends React.Component {
+class Search extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>Search</Text>
+        <Text>Search {this.props.counter} </Text>
       </View>
     );
   }
 }
+
+mapStateToProps = (state) => {
+  return {
+    counter: state.counter
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ add, sub } , dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Search)
